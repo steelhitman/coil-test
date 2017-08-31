@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="{{url_for('static',filename='bootstrap.min.css')}}">
+	<script src="{{url_for('static',filename='jquery.min.js')}}"></script>
+	<script src="{{url_for('static',filename='bootstrap.min.js')}}"></script>
+	<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script-->
+	<!--link rel="stylesheet" href="url_for('static',filename='font.css')"-->
+	<!--style>
+		br
+		{
+			line-height:8px;
+		}
+	</style-->
+</head>
+<body>
+	<br /><br />
+	<!--button id="refresh">click to refresh</button-->
+	<div class="container-fluid">
+		<br />
+		<div class="rows">
+			<div class="col-md-6">
+				<div class="col-md-5">
+					<center>
+					<p style="font-size:22px;margin-bottom:22px;"><b>RECEIVED DATA</b></p>
+					<br /><br />
+					<input style="font-size:20px;background-color:grey;color:white;text-align:center;" type="text" value="{{value[0]}}" readonly></input>
+					<br /><br /><br />
+					<input style="font-size:20px;background-color:grey;color:white;text-align:center;" type="text" value="{{value[1]}}" readonly></input>
+					<br /><br /><br />
+					<input style="font-size:20px;background-color:grey;color:white;text-align:center;" type="text" value="{{value[2]}}" readonly></input>
+					<br /><br /><br />
+					<input style="font-size:20px;background-color:grey;color:white;text-align:center;" type="text" value="{{value[3]}}" readonly	></input>
+					<br /><br />
+					</center>
+					<br /><br />
+					<center>
+					<br />
+					<table border="2">
+						<fieldset>
+							<tr>
+								<td>
+									<form action="http://{{ip[0]}}:5000/mode1" method="POST" id="mode1">
+										<input type="hidden" name="mode" value="1"></input>
+										<button style="color:white;border-radius:25px;width:100px;height:40px;" id="auto">AUTO</button>
+									</form>
+								</td>
+								<td>
+									<form action="http://{{ip[0]}}:5000/mode0" method="POST" id="mode0">
+										<input type="hidden" name="mode" value="0"></input>
+										<button style="color:white;border-radius:25px;width:100px;height:40px;" id="manual">MANUAL</button>
+									</form>
+								</td>
+							</tr>
+						</fieldset>
+					</table>
+					</center>
+				</div>
+				<div class="col-md-2">
+				</div>
+				<div class="col-md-5">
+					<center>
+					{%if mo==1%}
+					<center><p id="over" style="font-size:22px;"><b>MANUAL OVERRIDE DATA</b></p></center>
+						<form action="http://{{ip[0]}}:5000/overide" method="POST" id="over1">
+							<br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="3" type="text" name="line1" value="{{value[0]}}" readonly></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line2" value="{{value[1]}}" readonly></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line3" value="{{value[2]}}" readonly></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line4" value="{{value[3]}}" readonly	></input>
+							<br /><br />
+							<input type="hidden" value="{{pasuevar}}"></input>
+							<input type="hidden" value="{{value[4]}}" name="line5"></input>
+							<input type="hidden" value="{{value[5]}}" name="line6"></input>
+							<button type="submit" text="OVERRIDE" style="border-radius:10px;background-color:blue;color:white;width:170px;height:30px">OVERRIDE</button>
+						</form>
+					</center>
+					{%endif%}
+					{%if mo==0%}
+					<center><p id="over" style="font-size:22px;"><b>MANUAL OVERRIDE DATA</b></p></center>
+						<form action="http://{{ip[0]}}:5000/overide" method="POST" id="over1">
+							<br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="3" type="text" name="line1" value="{{value[0]}}"></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line2" value="{{value[1]}}"></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line3" value="{{value[2]}}"></input>
+							<br /><br /><br />
+							<input style="font-size:20px;text-align:center;" width="10" maxlength="10" type="text" name="line4" value="{{value[3]}}"></input>
+							<br /><br />
+							<input type="hidden" value="{{value[4]}}" name="line5"></input>
+							<input type="hidden" value="{{value[5]}}" name="line6"></input>
+							<button type="submit" text="OVERRIDE" style="border-radius:10px;background-color:blue;color:white;width:170px;height:30px">OVERRIDE</button>
+						</form>
+					</center>
+					{%endif%}
+				</div>
+			</div>
+			<div class="col-md-3">
+				<center><h3><b>Measured Data</b></h3></center>
+				<center>
+					<table border="3">
+						<fieldset>
+						<tr>
+							<td><b><center><span>&nbspDiameter(mm)&nbsp&nbsp </span></center></b></td>
+							<td><b><center><span>&nbspWidth(mm)&nbsp&nbsp </span></center></b></td>
+						</tr>
+						<tr>
+							<td><center><span style="font-size:25px;font-family:digital-7;">&nbsp{{spec[0]}}&nbsp </span></center></td>
+							<td><center><span style="font-size:25px;font-family:digital-7;" >&nbsp{{spec[1]}}&nbsp </span></center></td>
+						</tr>
+						</fieldset>
+					</table>
+					<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+					{%if plc==0%}
+					<h3><b>PLC Status</b><h3>
+					<table border="3">
+						<tr>
+							<td style="width:50px;">
+								<center>
+								<div id="coil" style="background-color:green;border-radius:10px;height:20px;width:20px;" id="1">
+									<form action="http://{{ip[0]}}:5000/" id="form1" method="POST">
+									</form>
+								</div>
+							</td>
+							</center>
+							<td>
+								<p>LIVE</p>
+							</td>
+						</tr>
+					</table>
+					{%endif%}
+					{%if plc==1%}
+					<h3><b>PLC Status</b><h3>
+					<table border="3">
+						<tr>
+							<td style="width:50px;">
+								<center>
+								<div id="coil" style="background-color:yellow;border-radius:10px;height:20px;width:20px;" id="1">
+									<form action="http://{{ip[0]}}:5000/" id="form1" method="POST">
+									</form>
+								</div>
+								</center>
+							</td>
+							<td>
+								<p>OFFLINE</p>
+							</td>
+						</tr>
+					</table>
+					{%endif%}
+				</center>
+			</div>
+		</div>
+			<div class="col-md-3">
+				<center>
+				<div id="coil" style="background-color:{{color[0]}};border-radius:30px;height:60px;width:60px;" id="1">
+					<form action="http://{{ip[0]}}:5000/update" id="form1" method="POST">
+					</form>
+				</div>
+				<p><b>Coil Status</b></p>
+				<br />
+				<div id="robot" style="background-color:{{color[1]}};border-radius:30px;height:60px;width:60px;" id="2">
+					<form action="http://{{ip[0]}}:5000/update" id="form2" method="POST">
+					</form>
+				</div>
+				<p><b>Robot Status</b></p>
+				<br />
+				<div id="pause">
+					<form action="http://{{ip[0]}}:5000/pause" id="pause" method="POST">
+					{%if pa==1%}
+						{%if coi==1%}
+							<button id="pause" style="background-color:green;border-radius:20px;height:80px;width:80px;"><b>RESUME</b></button>
+						{%endif%}
+						{%if coi==0%}
+							<button id="pause" style="background-color:green;border-radius:20px;height:80px;width:80px;" ><b>RESUME</b></button>
+						{%endif%}
+					{%endif%}
+					{%if pa==2%}
+						{%if coi==1%}
+							<button id="pause" style="background-color:green;border-radius:20px;height:80px;width:80px;"><b>START</b></button>
+						{%endif%}
+						{%if coi==0%}
+							<button id="pause" style="background-color:green;border-radius:20px;height:80px;width:80px;" disabled><b>START</b></button>
+						{%endif%}
+					{%endif%}
+					{%if pa==0%}
+						<button id="pause" style="background-color:#D2691E;border-radius:20px;height:80px;width:80px;"><b>PAUSE</b></button>
+					{%endif%}
+					</form>
+				</div>
+				<br />
+				<div id="next">
+					<form action="http://{{ip[0]}}:5000/next" method="POST">
+						<button style="background-color:#9ACD32;border-radius:20px;height:80px;width:80px;"><b>MARK ON NEXT COIL</b></button>	
+					</form>
+				</div>
+				<br />
+				<div id="stop">
+					<form action="http://{{ip[0]}}:5000/stop" method="POST">
+						<button style="background-color:red;border-radius:20px;height:80px;width:80px;"><b>STOP</b></button>	
+					</form>
+				</div>
+				<br /><br /><br />
+				</center>
+			</div>
+		</div>
+	</div>
+	<!--script>
+		$(document).ready(function(){$("#refresh").click(function(){$("#over1").submit();});});
+	</script-->
+	{%if coi==0%}
+		<script>
+			$(document).ready(function(){$("#pause1").hide();});
+		</script>
+	{%endif%}
+	{%if coi==1%}
+		<script>
+			$(document).ready(function(){$("#pause").show();});
+		</script>
+	{%endif%}
+	<script>
+		//$("#auto").click(function(){$("#over").hide();});
+		//$("#auto").click(function(){$("#over1").submit();});
+		//$("#auto").click(function(){$("#over1").hide();});
+		//$("#manual").click(function(){$("#over").show();});
+		//$("#manual").click(function(){$("#over1").show();});
+		/*if($('#over1').is(':hidden')) 
+		{	
+			$(document).ready(function(){$("#over1").delay(1000).submit();});
+			//$("#over1").delay(10000).submit();
+		}*/
+	</script>
+	{%if mo==1%}
+	<script>
+		$("#auto").css("background-color","black");
+		$("#manual").css("background-color","grey");
+		$(document).ready(setTimeout (function(){$("#over1").delay(1000).submit();},3000));
+		//$("#over1").submit();
+		//$("#over").hide();
+		//$("#over1").hide();
+		//$(document).ready(setTimeout (function(){$("#over1").delay(1000).submit();},5000));
+		//$(document).ready(function(){$("#mode1").submit();});
+	</script>
+	{%endif%}
+	{%if mo==0%}
+	<script>
+		$("#auto").css("background-color","grey");
+		$("#manual").css("background-color","black");
+		//$(document).ready(function(){$("#mode0").submit();});
+	</script>
+	{%endif%}
+	{%if r==1%}
+	<!--script>
+		$(document).ready(function(){$("#form1").submit();});
+		$(document).ready(function(){$("#form2").submit();});
+	</script-->
+	{%endif%}
+	<script>
+		$("auto").click(function(){$("#auto").css("background-color","green")});
+		$("auto").click(function(){$("#manual").css("background-color","red")});
+		$("manual").click(function(){$("#auto").css("background-color","red")});
+		$("manual").click(function(){$("#manual").css("background-color","green")});
+	</script>
+</body>
